@@ -20,5 +20,6 @@ Your done!
 ---------------------------
 
 Make sure to give some love to the official Skript project: https://github.com/SkriptLang/Skript
+Also if you would be so kind make sure to give credit to this project and the official Skript project
 
 My Discord: https://discord.gg/w2Afaur <-- If you need help or want to talk
