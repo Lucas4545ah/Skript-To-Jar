@@ -10,11 +10,14 @@ How to setup.
 3.) Fill in the options and press enter to build your Jar
 Thats it!
 
+Sample Command: SkriptToJar.exe "YourCoolSkriptName" "C:\YourSkript.sk"
+Sample Command 2: SkriptToJar.exe "YourCoolSkriptName" "C:\YourSkript.sk" -customSkript "C:\CustomSkriptVersion.jar"
+
 
 How to run it on a server?
 
 1.) Just drag your built .jar into your plugins folder like any other plugin
-2.) Run /skript enable Main
+2.) Run /skript enable YourSkriptNameHere
 Your done!
 
 ---------------------------

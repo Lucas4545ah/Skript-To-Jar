@@ -8,30 +8,38 @@ import time
 def helpPage(error):
     print("\n")
     print("ERROR: " + str(error))
-    print("Usage:  SkriptToJar.py 'C:\\Path\\To\\Skript\\File\\YourCoolSkript.sk' (Opt)-customSkript 'C:\\Path\\To\\Skript\\Jar\\Skript.jar'")
+    print("Usage:  SkriptToJar.py 'SkriptName' 'C:\\Path\\To\\Skript\\File\\YourCoolSkript.sk' (Opt)-customSkript 'C:\\Path\\To\\Skript\\Jar\\Skript.jar'")
+    print("Arguments:                   1                              2                                3                              4                 ")
     print("\n")
 
 if len(sys.argv) == 1: #Check to make sure that the argument exists
     helpPage("Argument 1 did not exist")
-    sys.exit(1)
-if not os.path.exists(sys.argv[1]): #Make sure that the Skript file exists
+    sys.exit()
+else:
+    skriptNewName = sys.argv[1] #Getnew skript name
+
+if len(sys.argv) == 2:
+    helpPage("Argument 2 did not exist")
+    sys.exit()
+
+if not os.path.exists(sys.argv[2]): #Make sure that the Skript file exists
     helpPage("Skript path did not exist")
     sys.exit()
 
 skriptJarPath = None
-if len(sys.argv) > 2:
-    if not sys.argv[2] == "-customSkript":
+if len(sys.argv) > 3:
+    if not sys.argv[3] == "-customSkript":
         helpPage("Invalid Argument 2")
         sys.exit()
     else:
-        if os.path.exists(sys.argv[3]):
-            skriptJarPath = sys.argv[3]
+        if os.path.exists(sys.argv[4]):
+            skriptJarPath = sys.argv[4]
         else:
-            helpPage("Custom skript jar could not be found : Argument 3")
+            helpPage("Custom skript jar could not be found : Argument 4")
             sys.exit()
 
 if skriptJarPath:
-    print("WARNING: Custom Skript jars do NOT come with support. Errors may accure...")
+    print("WARNING: Custom Skript jars do NOT come with support")
     time.sleep(5)
 
 if not os.path.exists("WORK"): #Remove and reset work folder
@@ -63,15 +71,28 @@ print("[Builder] Copying your script")
 try:
     shutil.rmtree("WORK/scripts") #Remove Built in Scripts
     os.mkdir("WORK/scripts") #Create folder again
-    shutil.copyfile(sys.argv[1], "WORK/scripts/-Main.sk") #Copy the file to the new directory
+    shutil.copyfile(sys.argv[2], "WORK/scripts/-" + sys.argv[1] + ".sk") #Copy the file to the new directory
 except Exception as error:
     print("[Builder] ERROR on task CopySkript: " + str(error))
+    sys.exit()
+
+print("[Builder] Rebuilding plugin information...")
+try:
+    with open("WORK/plugin.yml") as f:
+        fileRead = f.read().splitlines()
+    fileRead[21] = "name: " + skriptNewName
+    os.remove("WORK/plugin.yml")
+    with open("WORK/plugin.yml", "a") as f:
+        for line in fileRead:
+            f.write(line + "\n")
+except Exception as error:
+    print("[Builder] ERROR on task ReBuiltPluginInformation: " + str(error))
     sys.exit()
 
 print("[Builder] Rebuilding jar")
 try:
     shutil.make_archive("BuiltSkriptJar", 'zip', "WORK") #Zip The Work Directory
-    os.rename("BuiltSkriptJar.zip", "BuiltSkriptJar.jar") #Rename file
+    os.rename("BuiltSkriptJar.zip", sys.argv[1] + ".jar") #Rename file
 except Exception as error:
     print("[Builder] ERROR on task BuildJar: " + str(error))
     sys.exit()
