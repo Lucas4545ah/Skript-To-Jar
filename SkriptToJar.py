@@ -105,4 +105,4 @@ except Exception as error:
     print("[Builder] ERROR on task CleanUp: " + str(error))
     sys.exit()
 
-print("[Builder] Build complete! Saved: BuiltSkriptJar.jar")
+print("[Builder] Build complete! Saved: " + sys.argv[1] + ".jar")
