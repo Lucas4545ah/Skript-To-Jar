@@ -46,7 +46,10 @@ if not skriptJarPath:
     urllib.request.urlretrieve(skriptDownloadURL, "skript.jar") #Download the file
 else:
     print("[Builder] Custom jar detected, setting up custom jar...")
-    shutil.copyfile(skriptJarPath, "skript.jar")
+    try:
+        shutil.copyfile(skriptJarPath, "skript.jar")
+    except:
+        pass
 
 print("[Builder] Extracting Jar files")
 try:
