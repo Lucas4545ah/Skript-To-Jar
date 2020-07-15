@@ -50,7 +50,7 @@ else:
 
 print("[Builder] Downloading Skript.jar")
 if not skriptJarPath:
-    skriptDownloadURL = "https://github.com/SkriptLang/Skript/releases/download/2.5-alpha3/Skript.jar" #Set DownloadURL
+    skriptDownloadURL = "https://github.com/SkriptLang/Skript/releases/download/2.5-alpha5/Skript.jar" #Set DownloadURL
     urllib.request.urlretrieve(skriptDownloadURL, "skript.jar") #Download the file
 else:
     print("[Builder] Custom jar detected, setting up custom jar...")
