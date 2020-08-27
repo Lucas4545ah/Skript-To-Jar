@@ -6,12 +6,7 @@ Convert .sk files to a built in jar that makes it more easy for people to use yo
 How to setup.
 
 1.) Download SkriptToJar.exe
-2.) Open CMD and type SkriptToJar.exe to display the help page
-3.) Fill in the options and press enter to build your Jar
-Thats it!
-
-Sample Command: SkriptToJar.exe "YourCoolSkriptName" "C:\YourSkript.sk"
-Sample Command 2: SkriptToJar.exe "YourCoolSkriptName" "C:\YourSkript.sk" -customSkript "C:\CustomSkriptVersion.jar"
+2.) Run the exe and wait for the GUI to appear
 
 
 How to run it on a server?
