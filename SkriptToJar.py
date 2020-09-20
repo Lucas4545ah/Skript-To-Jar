@@ -75,7 +75,7 @@ def convertScripttoJar(skriptJarPath, scriptName, customSkriptPath=None):
 
     return "BuildSuccessfull"
 
-versionNum = "2.5"
+versionNum = "2.6"
 
 sg.theme("DarkBlue")
 layout = [
@@ -110,7 +110,7 @@ while True:
         else:
             if values["customSkriptJar"] == "":
                 outputBuild = convertScripttoJar(values["skriptPath"], values["name"])
-            elif values["customSkriptJar"].lower().endswith(".jar"):
+            elif not values["customSkriptJar"].lower().endswith(".jar"):
                 sg.popup_error("The file you selected is not a jar")
                 outputBuild = "Custom JAR selected is not JAR file"
             else:
