@@ -5,17 +5,25 @@ import zipfile
 import shutil
 import time
 import PySimpleGUI as sg
+from shutil import copyfile
 
-def convertScripttoJar(skriptJarPath, scriptName):
+def convertScripttoJar(skriptJarPath, scriptName, customSkriptPath=None):
     if not os.path.exists("WORK"): #Remove and reset work folder
         os.mkdir("WORK") #Make work directory
     else:
         shutil.rmtree("WORK")
         os.mkdir("WORK")
-
-    print("[Builder] Downloading Skript.jar")
-    skriptDownloadURL = "https://github.com/SkriptLang/Skript/releases/download/2.5-alpha5/Skript.jar" #Set DownloadURL
-    urllib.request.urlretrieve(skriptDownloadURL, "skript.jar") #Download the file
+    
+    if not customSkriptPath:
+        print("[Builder] Downloading Skript.jar")
+        skriptDownloadURL = "https://github.com/SkriptLang/Skript/releases/download/2.5-alpha5/Skript.jar" #Set DownloadURL
+        urllib.request.urlretrieve(skriptDownloadURL, "skript.jar") #Download the file
+    else:
+        if not os.path.exists(customSkriptPath):
+            return "ERROR on task DownloadJar: The custom skript jar does not exist"
+        if os.path.exists("skript.jar"):
+            os.remove("skript.jar")
+        copyfile(customSkriptPath, "skript.jar")
 
     print("[Builder] Extracting Jar files")
     try:
@@ -67,7 +75,7 @@ def convertScripttoJar(skriptJarPath, scriptName):
 
     return "BuildSuccessfull"
 
-versionNum = "2.0"
+versionNum = "2.5"
 
 sg.theme("DarkBlue")
 layout = [
@@ -76,6 +84,8 @@ layout = [
     [sg.FileBrowse(size=(7, 1)), sg.InputText(size=(45, 1), key="skriptPath")],
     [sg.Text("Create a new name")],
     [sg.InputText(size=(55, 1), key="name")],
+    [sg.Text("Custom skript jar(leave blank to download the latest version)")],
+    [sg.FileBrowse(size=(7, 1)), sg.InputText(size=(45, 1), key="customSkriptJar")],
     [sg.Button("Build Jar", size=(48, 1))],
     [sg.Text("IWick Development 2020", size=(42, 1)), sg.Button("Close")],
 ]
@@ -83,6 +93,7 @@ window = sg.Window(f"Skript to Jar | v{versionNum}", layout=layout)
 
 while True:
     event, values = window.read()
+    print(values["skriptPath"], values["name"], values["customSkriptJar"])
 
     if event == sg.WINDOW_CLOSED or event == "Close":
         break
@@ -97,7 +108,14 @@ while True:
         elif not values["skriptPath"].lower().endswith(".sk"):
             sg.popup_error("The file you selected is not a Skript file")
         else:
-            outputBuild = convertScripttoJar(values["skriptPath"], values["name"])
+            if values["customSkriptJar"] == "":
+                outputBuild = convertScripttoJar(values["skriptPath"], values["name"])
+            elif values["customSkriptJar"].lower().endswith(".jar"):
+                sg.popup_error("The file you selected is not a jar")
+                outputBuild = "Custom JAR selected is not JAR file"
+            else:
+                outputBuild = convertScripttoJar(values["skriptPath"], values["name"], values["customSkriptJar"])
+
             if outputBuild == "BuildSuccessfull":
                 sg.popup("Build successfull, check current directory for your built jar.")
             else:
