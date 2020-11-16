@@ -1,3 +1,8 @@
+[PROJECT CLOSED]
+Further support for this project has been halted. If you want to add extra featured feel free to fork the project on GitHub but my involvement will most likely be halted permanently.
+
+--------------------------------------------------------
+
 Skript To Jar
 Convert .sk files to a built in jar that makes it more easy for people to use your skript program
 
