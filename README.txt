@@ -13,3 +13,5 @@ you a jar.
 ##Install
 
 Currently it is flaged as "Malicious file" on open with windows, but its not malicious. Just click "More Info" then click "Run anyway"
+
+###Thats really it!
