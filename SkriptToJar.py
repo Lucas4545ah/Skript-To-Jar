@@ -16,7 +16,7 @@ def convertScripttoJar(skriptJarPath, scriptName, customSkriptPath=None):
     
     if not customSkriptPath:
         print("[Builder] Downloading Skript.jar")
-        skriptDownloadURL = "https://github.com/SkriptLang/Skript/releases/download/2.5-alpha5/Skript.jar" #Set DownloadURL
+        skriptDownloadURL = "https://github.com/SkriptLang/Skript/releases/download/2.5.3/Skript.jar" #Set DownloadURL
         urllib.request.urlretrieve(skriptDownloadURL, "skript.jar") #Download the file
     else:
         if not os.path.exists(customSkriptPath):
