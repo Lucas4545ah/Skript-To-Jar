@@ -77,7 +77,7 @@ def convertScripttoJar(skriptJarPath, scriptName, customSkriptPath=None):
 
 versionNum = "2.6"
 
-sg.theme("DarkBlue")
+sg.theme("Red")
 layout = [
     [sg.Text(f"Skript to Jar | v{versionNum}", font=("Arial", 20), size=(22, 2))],
     [sg.Text("Select a .SK file")],
@@ -88,6 +88,7 @@ layout = [
     [sg.FileBrowse(size=(7, 1)), sg.InputText(size=(45, 1), key="customSkriptJar")],
     [sg.Button("Build Jar", size=(48, 1))],
     [sg.Text("IWick Development 2020", size=(42, 1)), sg.Button("Close")],
+    [sg.Text("Forked by Lucas4545ah", size=(42,1))
 ]
 window = sg.Window(f"Skript to Jar | v{versionNum}", layout=layout)
 
